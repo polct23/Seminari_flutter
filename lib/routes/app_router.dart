@@ -1,13 +1,18 @@
 import 'package:go_router/go_router.dart';
+import 'package:seminari_flutter/screens/auth/login_screen.dart';
 import 'package:seminari_flutter/screens/borrar_screen.dart';
 import 'package:seminari_flutter/screens/details_screen.dart';
 import 'package:seminari_flutter/screens/editar_screen.dart';
 import 'package:seminari_flutter/screens/imprimir_screen.dart';
-import '../screens/home_screen.dart';
+import 'package:seminari_flutter/screens/home_screen.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/login',
   routes: [
+    GoRoute(
+      path: '/login',
+      builder: (context, state) =>  LoginPage(),
+    ),
     GoRoute(
       path: '/',
       builder: (context, state) => const HomeScreen(),
@@ -17,10 +22,10 @@ final GoRouter appRouter = GoRouter(
           builder: (context, state) => const DetailsScreen(),
           routes: [
             GoRoute(
-            path: 'imprimir',
-            builder: (context, state) => const ImprimirScreen(),
-          ),
-          ]
+              path: 'imprimir',
+              builder: (context, state) => const ImprimirScreen(),
+            ),
+          ],
         ),
         GoRoute(
           path: 'editar',

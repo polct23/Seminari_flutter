@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seminari_flutter/provider/users_provider.dart';
 import 'package:seminari_flutter/routes/app_router.dart';
-import 'package:seminari_flutter/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
