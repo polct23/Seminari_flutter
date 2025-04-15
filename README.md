@@ -14,3 +14,13 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## References
+
+Algunes webs amb material de disseny per Flutter:
+
+[1] https://docs.flutter.dev/ui/navigation
+[2] https://docs.flutter.dev/ui/widgets/material
+[3] https://docs.flutter.dev/ui/widgets/layout
+[4] https://m3.material.io/
+[5] https://pub.dev/packages/http

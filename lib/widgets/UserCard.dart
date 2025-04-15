@@ -3,37 +3,64 @@ import '../models/user.dart';
 
 class UserCard extends StatelessWidget {
   final User user;
+  final VoidCallback? onDelete;
 
-  const UserCard({super.key, required this.user});
+  const UserCard({super.key, required this.user, this.onDelete});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4,
+      elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
-            const CircleAvatar(
-              radius: 30,
-              child: Icon(Icons.person, size: 30),
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(16),
+        leading: CircleAvatar(
+          radius: 30,
+          backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+          child: Text(
+            user.name.isNotEmpty ? user.name[0].toUpperCase() : '?',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary,
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(user.name, style: Theme.of(context).textTheme.titleLarge),
-                  const SizedBox(height: 4),
-                  Text('Edat: ${user.age}'),
-                  Text('Email: ${user.email}'),
-                ],
-              ),
+          ),
+        ),
+        title: Text(
+          user.name,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                const Icon(Icons.cake, size: 16),
+                const SizedBox(width: 4),
+                Text('Edat: ${user.age}'),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                const Icon(Icons.email, size: 16),
+                const SizedBox(width: 4),
+                Text(user.email),
+              ],
             ),
           ],
         ),
+        trailing: onDelete != null
+            ? IconButton(
+                icon: const Icon(Icons.delete, color: Colors.red),
+                onPressed: onDelete,
+              )
+            : null,
       ),
     );
   }
