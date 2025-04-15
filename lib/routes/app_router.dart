@@ -6,7 +6,6 @@ import 'package:seminari_flutter/screens/editar_screen.dart';
 import 'package:seminari_flutter/screens/imprimir_screen.dart';
 import 'package:seminari_flutter/screens/home_screen.dart';
 import 'package:seminari_flutter/screens/perfil_screen.dart';
-import '../screens/home_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/login',
