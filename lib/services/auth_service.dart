@@ -1,8 +1,20 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class AuthService {
-  static const String _baseUrl = 'http://localhost:9000/api/users'; 
+  static String get _baseUrl {
+    if (kIsWeb) {
+      return 'http://localhost:9000/api/users';
+    } 
+    else if (!kIsWeb && Platform.isAndroid) {
+      return 'http://10.0.2.2:9000/api/users';
+    } 
+    else {
+      return 'http://localhost:9000/api/users';
+    }
+  }
 
 //login
   Future<Map<String, dynamic>> login(String email, String password) async {

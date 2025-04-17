@@ -1,9 +1,21 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/user.dart';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class UserService {
-  static const String baseUrl = 'http://localhost:9000/api/users';
+  static String get baseUrl {
+  if (kIsWeb) {
+    return 'http://localhost:9000/api/users';
+  } 
+  else if (!kIsWeb && Platform.isAndroid) {
+    return 'http://10.0.2.2:9000/api/users';
+  } 
+  else {
+    return 'http://localhost:9000/api/users';
+  }
+}
 
   static Future<List<User>> getUsers() async {
     final response = await http.get(Uri.parse(baseUrl));
