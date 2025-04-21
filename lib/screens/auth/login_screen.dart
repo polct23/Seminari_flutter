@@ -11,40 +11,41 @@ class LoginPage extends StatelessWidget {
   final passwordController = TextEditingController();
 
   void signUserIn(BuildContext context) async {
-  final authService = AuthService();
+    final authService = AuthService();
 
-  final email = emailController.text;
-  final password = passwordController.text;
+    final email = emailController.text;
+    final password = passwordController.text;
 
-  if (email.isEmpty || password.isEmpty) {
-    _showError(context, 'El email i la contrasenya no poden estar buits.');
-    return;
+    if (email.isEmpty || password.isEmpty) {
+      _showError(context, 'El email i la contrasenya no poden estar buits.');
+      return;
+    }
+
+    final result = await authService.login(email, password);
+
+    if (result.containsKey('error')) {
+      _showError(context, result['error']);
+    } else {
+      context.go('/');
+    }
   }
-
-  final result = await authService.login(email, password);
-
-  if (result.containsKey('error')) {
-    _showError(context, result['error']);
-  } else {
-    context.go('/');
-  }
-}
 
   void _showError(BuildContext context, String message) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Error'),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('OK'),
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Error'),
+            content: Text(message),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
@@ -69,9 +70,17 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 25),
-                MyTextfield(controller: emailController, hintText: 'Email', obscureText: false),
+                MyTextfield(
+                  controller: emailController,
+                  hintText: 'Email',
+                  obscureText: false,
+                ),
                 const SizedBox(height: 10),
-                MyTextfield(controller: passwordController, hintText: 'Contrasenya', obscureText: true),
+                MyTextfield(
+                  controller: passwordController,
+                  hintText: 'Contrasenya',
+                  obscureText: true,
+                ),
                 const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
