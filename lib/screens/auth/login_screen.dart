@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:seminari_flutter/components/my_textfield.dart';
 import 'package:seminari_flutter/components/my_button.dart';
 import 'package:seminari_flutter/services/auth_service.dart';
+import 'package:seminari_flutter/provider/users_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:seminari_flutter/models/user.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -12,6 +15,7 @@ class LoginPage extends StatelessWidget {
 
   void signUserIn(BuildContext context) async {
     final authService = AuthService();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     final email = emailController.text;
     final password = passwordController.text;
@@ -26,6 +30,9 @@ class LoginPage extends StatelessWidget {
     if (result.containsKey('error')) {
       _showError(context, result['error']);
     } else {
+      print(result);
+      userProvider.setCurrentUser(User.fromJson(result['user']));
+      await Future.delayed(Duration.zero);
       context.go('/');
     }
   }
